@@ -12,7 +12,7 @@ export const fetchSong = async (songId) => {
 
 export const fetchStreaming = async (songId) => {
   try {
-    const res = await axios.get(REACT_APP_STREAMING_URL + songId);
+    const res = await axios.get(process.env.REACT_APP_STREAMING_URL + songId);
     return res.data;
   } catch (error) {
     console.log(error);
