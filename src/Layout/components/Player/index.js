@@ -72,7 +72,7 @@ const Player = () => {
         })
       );
       const result = await fetchStreaming(currentSongId);
-      dispatch(playerActions.updateSource(result["128"]));
+      !!result && dispatch(playerActions.updateSource(result["128"]));
       dispatch(
         playerActions.setFetchingStatus({
           isFetching: false,
