@@ -8,7 +8,7 @@ const Song = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8800/api/user/${user?._id}/recentSongs`, {
+      .get(`${process.env.REACT_APP_FETCH_URL}user/${user?._id}/recentSongs`, {
         headers: {
           token: `Bearer ${user.accessToken}`,
         },
@@ -21,7 +21,7 @@ const Song = () => {
   const handleDelete = (songEncodeId) => {
     axios
       .put(
-        `http://localhost:8800/api/user/${user?._id}/recentSongs`,
+        `${process.env.REACT_APP_FETCH_URL}user/${user?._id}/recentSongs`,
         { songId: songEncodeId, action: "delete" },
         {
           headers: {

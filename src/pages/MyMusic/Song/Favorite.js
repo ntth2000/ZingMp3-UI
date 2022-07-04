@@ -2,14 +2,13 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Media from "~/components/Media";
-import Button from "~/components/Button";
 const Favorite = () => {
   const [data, setData] = useState([]);
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8800/api/user/${user?._id}/favoriteSongs`, {
+      .get(`user/${user?._id}/favoriteSongs`, {
         headers: {
           token: `Bearer ${user?.accessToken}`,
         },

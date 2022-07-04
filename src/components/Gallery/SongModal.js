@@ -7,7 +7,7 @@ const SongModal = ({ encodeId, hide }) => {
   const [data, setData] = useState();
   useEffect(() => {
     axios
-      .get("http://localhost:8800/api/song/" + encodeId)
+      .get("${process.env.REACT_APP_FETCH_URL}song/" + encodeId)
       .then((res) => setData(res.data))
       .catch((error) => console.log(error));
   }, [encodeId]);

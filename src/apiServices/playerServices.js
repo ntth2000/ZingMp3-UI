@@ -1,4 +1,3 @@
-import axios from "axios";
 import * as request from "~/utils/request";
 
 export const fetchSong = async (songId) => {

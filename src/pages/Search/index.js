@@ -22,7 +22,7 @@ const Search = () => {
     setIsLoading(true);
     console.log("search is loading?", isLoading);
     axios
-      .get("http://localhost:8800/api/search", {
+      .get("${process.env.REACT_APP_FETCH_URL}search", {
         params: { q: searchText },
       })
       .then((res) => setData(res.data))

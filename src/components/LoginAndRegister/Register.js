@@ -59,11 +59,14 @@ const Register = ({ showLogin }) => {
         dispatch(authActions.setFetching(true));
 
         axios
-          .post("http://localhost:8800/api/user/register", data.formValues)
+          .post(
+            "${process.env.REACT_APP_FETCH_URL}user/register",
+            data.formValues
+          )
           .then((res) => {
             setError(null);
             axios
-              .post("http://localhost:8800/api/auth/login", {
+              .post("${process.env.REACT_APP_FETCH_URL}auth/login", {
                 email: data.formValues.email,
                 password: data.formValues.password,
               })

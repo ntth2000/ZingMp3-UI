@@ -20,7 +20,7 @@ const ArtistName = forwardRef(({ artist, showSpotlight = false }, ref) => {
   };
   const handleHover = () => {
     axios
-      .get(`http://localhost:8800/api/card-info/${artist.id}`)
+      .get(`${process.env.REACT_APP_FETCH_URL}card-info/${artist.id}`)
       .then((res) => setData(res.data))
       .catch((error) => console.log(error));
   };

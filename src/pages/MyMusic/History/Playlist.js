@@ -11,11 +11,14 @@ const Song = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8800/api/user/${user?._id}/recentPlaylists`, {
-        headers: {
-          token: `Bearer ${user.accessToken}`,
-        },
-      })
+      .get(
+        `${process.env.REACT_APP_FETCH_URL}user/${user?._id}/recentPlaylists`,
+        {
+          headers: {
+            token: `Bearer ${user.accessToken}`,
+          },
+        }
+      )
       .then((res) => {
         setData(res.data);
       })
