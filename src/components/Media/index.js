@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import TippyHeadless from "@tippyjs/react/headless";
 import PropTypes from "prop-types";
-
+import { Link } from "react-router-dom";
 import ArtistName from "~/components/ArtistName";
 import Icon from "~/components/Icon";
 import images from "~/assets/images";
@@ -12,7 +12,6 @@ import useToast from "~/components/Toast";
 import "./Media.scss";
 import { playerActions } from "~/stores/playerSlice";
 import { queueActions } from "~/stores/queueSlice";
-import { Link, useNavigate } from "react-router-dom";
 import { MediaMenu } from "~/components/Menus";
 const Media = ({
   item,
@@ -69,10 +68,10 @@ const Media = ({
         !idList.includes(item?.encodeId)
       ) {
         dispatch(queueActions.updatePlaylistId(playlistId || null));
-        if (currentPlaylistId === null) {
-          dispatch(queueActions.updateOriginalList([item?.encodeId]));
-          dispatch(queueActions.updateItems({ [item.encodeId]: item }));
-        }
+        // if (currentPlaylistId === null) {
+        dispatch(queueActions.updateOriginalList([item?.encodeId]));
+        dispatch(queueActions.updateItems({ [item.encodeId]: item }));
+        // }
         dispatch(playerActions.pauseMusic());
         dispatch(queueActions.updateCurrentSong(item?.encodeId));
         dispatch(playerActions.setAutoplay(true));

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const request = axios.create({
-  baseURL: process.env.REACT_APP_FETCH_API,
+  baseURL: process.env.REACT_APP_FETCH_URL,
 });
 export const get = async (url, options = {}) => {
   const res = await request.get(url, options);

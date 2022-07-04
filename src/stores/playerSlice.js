@@ -53,7 +53,7 @@ const playerSlice = createSlice({
     },
     setFetchingStatus: (state, action) => {
       state.isFetching = action.payload.isFetching;
-      state.fetchingStatus = action.payload.status;
+      state.error = action.payload.error;
       localStorage.setItem(MUSIC_PLAYER, JSON.stringify(removeAutoplay(state)));
     },
     setPrevVolume: (state, action) => {

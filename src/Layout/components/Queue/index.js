@@ -57,7 +57,7 @@ const Queue = () => {
         !!user &&
           axios
             .put(
-              `http://localhost:8800/api/user/${user._id}/recentPlaylists`,
+              `${process.env.REACT_APP_FETCH_URL}user/${user._id}/recentPlaylists`,
               { playlistId: currentPlaylistId, action: "add" },
               {
                 headers: {

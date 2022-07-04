@@ -38,9 +38,8 @@ const Explore = () => {
 
   return (
     <div className="explore">
-      {isLoading && !data && <ExploreLoader />}
-
-      {data && (
+      {isLoading && <ExploreLoader />}
+      {!isLoading && data && (
         <>
           <div className="section">
             {<Gallery items={data?.banner?.items} />}

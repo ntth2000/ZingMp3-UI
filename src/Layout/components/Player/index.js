@@ -18,14 +18,14 @@ import Media from "~/components/Media";
 
 import { PlayerMediaMenu } from "~/components/Menus";
 import useToast from "~/components/Toast";
+import { request } from "~/utils/request";
 
 const Player = () => {
   const $ = document.querySelector.bind(document);
   const dispatch = useDispatch();
   const toast = useToast();
-  const { isPlaying, volume, source, isFetching, autoplay } = useSelector(
-    (state) => state.player
-  );
+  const { isPlaying, volume, source, isFetching, error, autoplay } =
+    useSelector((state) => state.player);
   const { user } = useSelector((state) => state.auth);
   const { items, currentSongId, shuffle, repeatStatus, currentIndex, idList } =
     useSelector((state) => state.queue);
@@ -55,10 +55,7 @@ const Player = () => {
         setRepeatTippyText("Bật phát lại tất cả");
     }
   }, [repeatStatus]);
-  useEffect(() => {
-    const audio = $(".player-audio");
-    audio.muted = false;
-  }, []);
+  useEffect(() => {}, []);
   useEffect(() => {
     dispatch(playerActions.pauseMusic());
   }, []);
@@ -68,35 +65,45 @@ const Player = () => {
       dispatch(
         playerActions.setFetchingStatus({
           isFetching: true,
-          fetchingStatus: "pending",
+          error: null,
         })
       );
-      const result = await fetchStreaming(currentSongId);
-      !!result && dispatch(playerActions.updateSource(result["128"]));
-      dispatch(
-        playerActions.setFetchingStatus({
-          isFetching: false,
-          fetchingStatus: "completed",
-        })
-      );
+      try {
+        const res = await request.get("streaming/" + currentSongId);
+        dispatch(playerActions.updateSource(res.data["128"]));
+        dispatch(
+          playerActions.setFetchingStatus({
+            isFetching: false,
+            error: null,
+          })
+        );
+      } catch (error) {
+        dispatch(playerActions.updateSource(null));
+        dispatch(
+          playerActions.setFetchingStatus({
+            isFetching: false,
+            error: true,
+          })
+        );
+        toast(error.response.data.msg);
+      }
     };
     fetchAudio();
 
-    {
-      !!user &&
-        axios
-          .put(
-            `http://localhost:8800/api/user/${user._id}/recentSongs`,
-            { songId: currentSongId, action: "add" },
-            {
-              headers: {
-                token: `Bearer ${user.accessToken}`,
-              },
-            }
-          )
-          .then((res) => res.data)
-          .catch((error) => console.log(error));
-    }
+    !!user &&
+      !error &&
+      axios
+        .put(
+          `http://localhost:8800/api/user/${user._id}/recentSongs`,
+          { songId: currentSongId, action: "add" },
+          {
+            headers: {
+              token: `Bearer ${user.accessToken}`,
+            },
+          }
+        )
+        .then((res) => res.data)
+        .catch((error) => console.log(error));
   }, [currentSongId]);
 
   useEffect(() => {
@@ -137,10 +144,12 @@ const Player = () => {
     };
 
     playBtn.onclick = () => {
-      if (audio.paused) {
-        dispatch(playerActions.playMusic());
-      } else {
-        dispatch(playerActions.pauseMusic());
+      if (source) {
+        if (audio.paused) {
+          dispatch(playerActions.playMusic());
+        } else {
+          dispatch(playerActions.pauseMusic());
+        }
       }
     };
 
@@ -177,6 +186,7 @@ const Player = () => {
     const audio = $(".player-audio");
 
     if (isPlaying) {
+      audio.muted = false;
       audio.play();
       dispatch(
         playerActions.setFetchingStatus({

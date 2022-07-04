@@ -33,13 +33,6 @@ const Album = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const layout = document.querySelector(".layout-content");
-    layout.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, [albumId]);
-  useEffect(() => {
     const fetchAlbumDetail = async () => {
       setIsLoading(true);
       const result = await fetchAlbum(albumId);
@@ -57,6 +50,12 @@ const Album = () => {
 
     fetchAlbumDetail();
     fetchBottom();
+
+    const layout = document.querySelector(".layout-content");
+    layout.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, [albumId]);
 
   const handleClick = () => {
@@ -73,7 +72,7 @@ const Album = () => {
   const likes = useFormatFollowers(data?.like);
   return (
     <div className="album">
-      {!data && isLoading && <AlbumLoader />}
+      {isLoading && <AlbumLoader />}
       {data && (
         <>
           <div className="album-detail">
