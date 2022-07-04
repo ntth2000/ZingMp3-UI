@@ -20,10 +20,10 @@ const useToast = () => {
     }, 4000);
 
     const closeToastTimeoutId = setTimeout(function () {
-      toastList.removeChild(toastList.firstChild);
+      toastList.removeChild(toast);
     }, 5000);
     close.onclick = () => {
-      toastList.removeChild(toastList.firstChild);
+      toastList.removeChild(toast);
       if (slideOutTimeoutId) {
         clearTimeout(slideOutTimeoutId);
       }
