@@ -10,7 +10,7 @@ const initialState = JSON.parse(localStorage.getItem(QUEUE)) || {
   idList: [],
   originalIdList: [],
   currentIndex: 0,
-  shuffle: false,
+  isShuffle: false,
   repeatStatus: 0,
   items: [],
 };
@@ -24,10 +24,11 @@ const queueSlice = createSlice({
     },
     updateRepeatStatus: (state) => {
       state.repeatStatus = (state.repeatStatus + 1) % 3;
+      localStorage.setItem(QUEUE, JSON.stringify(state));
     },
     toggleShuffle: (state) => {
-      state.shuffle = !state.shuffle;
-      if (state.shuffle) {
+      state.isShuffle = !state.isShuffle;
+      if (state.isShuffle) {
         state.idList = shuffleQueue(state.originalIdList);
       } else {
         state.idList = [...state.originalIdList];
@@ -49,7 +50,7 @@ const queueSlice = createSlice({
     },
     updateOriginalList: (state, action) => {
       state.originalIdList = action.payload;
-      if (state.shuffle) {
+      if (state.isShuffle) {
         state.idList = shuffleQueue(state.originalIdList);
       } else {
         state.idList = [...state.originalIdList];

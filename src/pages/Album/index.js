@@ -19,7 +19,7 @@ import { fetchAlbum, fetchSectionBottom } from "~/apiServices/albumServices";
 
 import { playerActions } from "~/stores/playerSlice";
 import { queueActions } from "~/stores/queueSlice";
-import useFormatFollowers from "~/hooks/useFormatFollowers";
+import formatFollowers from "~/utils/formatFollowers";
 import AlbumLoader from "~/components/PageLoader/Page/Album";
 
 const Album = () => {
@@ -69,7 +69,7 @@ const Album = () => {
     }
   };
 
-  const likes = useFormatFollowers(data?.like);
+  const likes = formatFollowers(data?.like);
   return (
     <div className="album">
       {isLoading && <AlbumLoader />}

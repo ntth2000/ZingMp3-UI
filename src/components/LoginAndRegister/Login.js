@@ -37,7 +37,7 @@ const Login = ({ showRegister }) => {
         setError(null);
         dispatch(authActions.setFetching(true));
         axios
-          .post("${process.env.REACT_APP_FETCH_URL}auth/login", data.formValues)
+          .post(`${process.env.REACT_APP_FETCH_URL}auth/login`, data.formValues)
           .then((res) => {
             dispatch(authActions.setFetching(false));
             setError(null);

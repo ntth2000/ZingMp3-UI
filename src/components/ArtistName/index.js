@@ -10,7 +10,7 @@ import "./ArtistName.scss";
 import Button from "~/components/Button";
 import Card from "~/components/Card";
 import PopperWrapper from "../Popper";
-import useFormatFollowers from "~/hooks/useFormatFollowers";
+import formatFollowers from "~/utils/formatFollowers";
 
 const ArtistName = forwardRef(({ artist, showSpotlight = false }, ref) => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const ArtistName = forwardRef(({ artist, showSpotlight = false }, ref) => {
       .then((res) => setData(res.data))
       .catch((error) => console.log(error));
   };
-  const followers = useFormatFollowers(data?.totalFollow);
+  const followers = formatFollowers(data?.totalFollow);
   return (
     <TippyHeadless
       placement="top-start"

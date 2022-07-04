@@ -1,12 +1,14 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import TippyHeadless from "@tippyjs/react/headless";
 import ArtistName from "~/components/ArtistName";
 import Icon from "~/components/Icon";
 import { PlayerMediaMenu } from "~/components/Menus";
 import useToast from "~/components/Toast";
-const PlayerMedia = ({ data }) => {
+import { useSelector } from "react-redux";
+const PlayerMedia = () => {
   const toast = useToast();
+  const { items, currentSongId } = useSelector((state) => state.queue);
+  const data = items[currentSongId];
   const [like, setLike] = useState(false);
   const handleLikeSong = () => {
     setLike((prev) => !prev);
@@ -86,7 +88,5 @@ const PlayerMedia = ({ data }) => {
     </div>
   );
 };
-PlayerMedia.propTypes = {
-  data: PropTypes.object.isRequired,
-};
+
 export default PlayerMedia;

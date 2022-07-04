@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import "./ArtistCard.scss";
 import Button from "~/components/Button";
 import ArtistName from "~/components/ArtistName";
-import useFormatFollowers from "~/hooks/useFormatFollowers";
+import formatFollowers from "~/utils/formatFollowers";
 const ArtistCard = ({ item, showButton = true, showFollow = true }) => {
-  const followers = useFormatFollowers(item?.totalFollow);
+  const followers = formatFollowers(item?.totalFollow);
   return (
     <div className="artist-card">
       <div className="artist-card-thumb is-circle zoom-in">

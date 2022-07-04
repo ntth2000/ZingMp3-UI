@@ -7,7 +7,7 @@ import Button from "~/components/Button";
 import Media from "~/components/Media";
 import useModal from "~/components/Modal";
 import { ArtistLoader } from "~/components/PageLoader/Page";
-import useFormatFollowers from "~/hooks/useFormatFollowers";
+import formatFollowers from "~/utils/formatFollowers";
 import Album from "./Album";
 import Biography from "./Biography";
 import Event from "./Event";
@@ -21,7 +21,7 @@ const Artist = () => {
   const { name } = useParams();
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const followers = useFormatFollowers(data?.follow);
+  const followers = formatFollowers(data?.follow);
   function getSectionData(sectionName, originalData) {
     const result = originalData.sections.filter(
       (item) => item.title === sectionName

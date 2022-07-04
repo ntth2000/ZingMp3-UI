@@ -13,12 +13,22 @@ const initialState = JSON.parse(localStorage.getItem(MUSIC_PLAYER)) || {
   error: null,
   source: "",
   autoplay: false,
+  currentTime: 0,
+  isLoop: false,
 };
 
 const playerSlice = createSlice({
   name: "player",
   initialState,
   reducers: {
+    setCurrentTime: (state, action) => {
+      state.currentTime = action.payload;
+      localStorage.setItem(MUSIC_PLAYER, JSON.stringify(removeAutoplay(state)));
+    },
+    setLoop: (state, action) => {
+      state.isLoop = action.payload;
+      localStorage.setItem(MUSIC_PLAYER, JSON.stringify(removeAutoplay(state)));
+    },
     setAutoplay: (state, action) => {
       state.autoplay = action.payload;
     },

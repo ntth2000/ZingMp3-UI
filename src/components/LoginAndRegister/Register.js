@@ -60,13 +60,13 @@ const Register = ({ showLogin }) => {
 
         axios
           .post(
-            "${process.env.REACT_APP_FETCH_URL}user/register",
+            `${process.env.REACT_APP_FETCH_URL}user/register`,
             data.formValues
           )
           .then((res) => {
             setError(null);
             axios
-              .post("${process.env.REACT_APP_FETCH_URL}auth/login", {
+              .post(`${process.env.REACT_APP_FETCH_URL}auth/login`, {
                 email: data.formValues.email,
                 password: data.formValues.password,
               })

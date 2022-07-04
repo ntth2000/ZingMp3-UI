@@ -210,3 +210,16 @@
   color: var(--text-secondary);
   padding-right: 10px;
 }
+.media-spinner {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  .lds-spinner {
+    width: 34px;
+    height: 34px;
+    fill: var(--text-primary);
+  }
+}

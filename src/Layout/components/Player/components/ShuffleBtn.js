@@ -7,7 +7,7 @@ import Icon from "~/components/Icon";
 
 const ShuffleBtn = () => {
   const dispatch = useDispatch();
-  const { shuffle } = useSelector((state) => state.queue);
+  const { isShuffle } = useSelector((state) => state.queue);
   const handleToggleShuffle = () => {
     dispatch(queueActions.toggleShuffle());
   };
@@ -21,10 +21,10 @@ const ShuffleBtn = () => {
       className={clsx(
         "player-btn",
         "random",
-        shuffle && "active",
+        isShuffle && "active",
         "hide-on-mobile"
       )}
-      content={shuffle ? "Tắt phát ngẫu nhiên" : "Bật phát ngẫu nhiên"}
+      content={isShuffle ? "Tắt phát ngẫu nhiên" : "Bật phát ngẫu nhiên"}
       space={14}
       onClick={handleToggleShuffle}
     >

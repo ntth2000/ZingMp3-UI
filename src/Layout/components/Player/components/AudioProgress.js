@@ -1,16 +1,14 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-const AudioProgress = ({ data }) => {
-  const [currentTime, setCurrentTime] = useState(0);
-  const formatTime = (time) => {
-    return (
-      `${Math.floor(time / 60)
-        .toString()
-        .padStart(2, "0")}:${Math.floor(time % 60)
-        .toString()
-        .padStart(2, "0")}` || 0
-    );
-  };
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import formatTime from "~/utils/formatTime";
+const AudioProgress = () => {
+  const { currentTime } = useSelector((state) => state.player);
+  const { items, currentSongId } = useSelector((state) => state.queue);
+  const data = items[currentSongId];
+  useEffect(() => {
+    const audioInput = document.querySelector(".player-process-bar");
+    audioInput.value = (currentTime / data.duration) * 100 || 0;
+  }, [currentTime]);
   return (
     <div className="player-process hide-on-mobile">
       <span className="player-current-time">
@@ -22,7 +20,6 @@ const AudioProgress = ({ data }) => {
         min={0}
         max={100}
         step={0.1}
-        value={data ? (currentTime * 100) / data?.duration : 0}
         style={{
           backgroundSize: `${data ? (currentTime * 100) / data?.duration : 0}%`,
         }}
@@ -33,7 +30,5 @@ const AudioProgress = ({ data }) => {
     </div>
   );
 };
-AudioProgress.propTypes = {
-  data: PropTypes.object.isRequired,
-};
+
 export default AudioProgress;

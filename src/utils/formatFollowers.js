@@ -1,4 +1,4 @@
-const useFormatFollowers = (followers) => {
+const formatFollowers = (followers) => {
   if (followers > 1000000) {
     return `${(followers / 1000000).toFixed(1)}M`;
   } else if (followers > 1000) {
@@ -7,4 +7,4 @@ const useFormatFollowers = (followers) => {
     return followers;
   }
 };
-export default useFormatFollowers;
+export default formatFollowers;

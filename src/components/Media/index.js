@@ -8,11 +8,13 @@ import ArtistName from "~/components/ArtistName";
 import Icon from "~/components/Icon";
 import images from "~/assets/images";
 import useToast from "~/components/Toast";
-
-import "./Media.scss";
+import formatTime from "~/utils/formatTime";
 import { playerActions } from "~/stores/playerSlice";
 import { queueActions } from "~/stores/queueSlice";
 import { MediaMenu } from "~/components/Menus";
+import "./Media.scss";
+import { Spinner } from "~/assets/icons";
+import { useEffect } from "react";
 const Media = ({
   item,
   index,
@@ -35,16 +37,12 @@ const Media = ({
   const { currentSongId, currentPlaylistId, idList } = useSelector(
     (state) => state.queue
   );
+  const [mediaIcon, setMediaIcon] = useState(
+    <i className="media-icon ic-play"></i>
+  );
+  const { isPlaying, isFetching } = useSelector((state) => state.player);
 
-  const { isPlaying, fetchingStatus } = useSelector((state) => state.player);
-
-  const duration = item
-    ? `${Math.floor(item?.duration / 60)
-        .toString()
-        .padStart(2, "0")}:${Math.floor(item?.duration % 60)
-        .toString()
-        .padStart(2, "0")}`
-    : 120;
+  const duration = item ? formatTime(item?.duration) : 120;
 
   const mediaClasses = clsx(
     "media",
@@ -96,6 +94,19 @@ const Media = ({
     }
   };
 
+  useEffect(() => {
+    if (item?.encodeId === currentSongId && isPlaying) {
+      setMediaIcon(<img className="media-icon" src={images.playingGif} />);
+    } else if (isFetching && item?.encodeId === currentSongId) {
+      setMediaIcon(
+        <span className="media-spinner is-circle">
+          <Spinner />
+        </span>
+      );
+    } else {
+      setMediaIcon(<i className="media-icon ic-play"></i>);
+    }
+  }, [isFetching, item?.encodeId, currentSongId, isPlaying]);
   return (
     <div className={mediaClasses}>
       <div className="media-left">
@@ -113,11 +124,7 @@ const Media = ({
             alt={item?.title}
             className="media-thumbnail"
           />
-          {item?.encodeId === currentSongId && isPlaying ? (
-            <img className="media-icon" src={images.playingGif} />
-          ) : (
-            <i className="media-icon ic-play"></i>
-          )}
+          {mediaIcon}
         </div>
         <div className="media-info">
           {desc && <p className="media-desc">{desc}</p>}

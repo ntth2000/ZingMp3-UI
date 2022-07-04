@@ -4,6 +4,7 @@ import clsx from "clsx";
 
 import { queueActions } from "~/stores/queueSlice";
 import Icon from "~/components/Icon";
+import { playerActions } from "~/stores/playerSlice";
 
 const RepeatBtn = () => {
   const dispatch = useDispatch();
@@ -15,15 +16,19 @@ const RepeatBtn = () => {
     switch (repeatStatus) {
       case 0:
         setRepeatTippyText("Bật phát lại tất cả");
+        dispatch(playerActions.setLoop(false));
         break;
       case 1:
         setRepeatTippyText("Bật phát lại một bài");
+        dispatch(playerActions.setLoop(false));
         break;
       case 2:
         setRepeatTippyText("Tắt phát lại");
+        dispatch(playerActions.setLoop(true));
         break;
       default:
         setRepeatTippyText("Bật phát lại tất cả");
+        dispatch(playerActions.setLoop(false));
     }
   }, [repeatStatus]);
 
