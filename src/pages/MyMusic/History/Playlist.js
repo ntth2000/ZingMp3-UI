@@ -16,9 +16,12 @@ const Song = () => {
       })
       .then((res) => {
         setData(res.data);
+        setIsFetching(false);
       })
-      .catch((error) => console.log(error));
-    setIsFetching(false);
+      .catch((error) => {
+        console.log(error);
+        setIsFetching(false);
+      });
   }, []);
   return (
     <div className="history-library-playlist">
