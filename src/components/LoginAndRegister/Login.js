@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import "./LoginAndRegister.scss";
 
@@ -9,11 +8,16 @@ import useValidate from "~/hooks/useValidate";
 import Button from "~/components/Button";
 
 import { authActions } from "~/stores/authSlice";
+import { request } from "~/utils/request";
+import { Spinner } from "~/assets/icons";
+import clsx from "clsx";
+import useToast from "~/components/Toast";
 const Login = ({ showRegister }) => {
   const dispatch = useDispatch();
-  const [error, setError] = useState();
+  const toast = useToast();
   const { isFetching } = useSelector((state) => state.auth);
   const validator = useValidate();
+  const [error, setError] = useState(null);
   const [value, setValue] = useState({});
   const emailRef = useRef();
   const usernameRef = useRef();
@@ -23,6 +27,7 @@ const Login = ({ showRegister }) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
+
   useEffect(() => {
     validator({
       form: ".auth-form#login",
@@ -36,13 +41,14 @@ const Login = ({ showRegister }) => {
       onSubmit(data) {
         setError(null);
         dispatch(authActions.setFetching(true));
-        axios
-          .post(`${process.env.REACT_APP_FETCH_URL}auth/login`, data.formValues)
+        request
+          .post("auth/login", data.formValues)
           .then((res) => {
             dispatch(authActions.setFetching(false));
             setError(null);
             const { accessToken, avatar, _id } = res.data;
             dispatch(authActions.login({ accessToken, avatar, _id }));
+            toast("Đăng nhập thành công!");
           })
           .catch((axiosError) => {
             dispatch(authActions.setFetching(false));
@@ -97,9 +103,9 @@ const Login = ({ showRegister }) => {
             type="primary"
             hover="bg-bright"
             size="large"
-            className={"auth-btn"}
+            className={clsx("auth-btn", isFetching && "fetching")}
           >
-            Đăng nhập
+            {isFetching ? <Spinner /> : "Đăng nhập"}
           </Button>
         </form>
 

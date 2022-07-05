@@ -1,6 +1,6 @@
 import React from "react";
 import Icon from "~/components/Icon";
-import { ListLoader } from "../Component";
+import { ListMediaLoader } from "../Component";
 
 const AlbumLoader = () => {
   return (
@@ -26,7 +26,7 @@ const AlbumLoader = () => {
         </div>
         <div className="album-songs">
           <div className="album-desc loader full-width title"></div>
-          <ListLoader />
+          <ListMediaLoader />
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import Button from "~/components/Button";
 import { fetchPageData } from "~/apiServices/pageDataServices";
 
 import "./NewReleases.scss";
-import { ListLoader as NewReleaseLoader } from "~/components/PageLoader/Component";
+import { ListMediaLoader as NewReleaseLoader } from "~/components/PageLoader/Component";
 
 const NewReleases = () => {
   const title = document.querySelector("title");

@@ -1,32 +1,28 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { SwiperSlide } from "swiper/react";
 import Card from "~/components/Card";
-import MySwiper from "~/components/MySwiper";
-import images from "~/assets/images";
+import ListCardLoader from "~/components/PageLoader/Component/ListCard";
+import { request } from "~/utils/request";
 const Song = () => {
   const [data, setData] = useState([]);
   const { user } = useSelector((state) => state.auth);
-
+  const [isFetching, setIsFetching] = useState(true);
   useEffect(() => {
-    axios
-      .get(
-        `${process.env.REACT_APP_FETCH_URL}user/${user?._id}/recentPlaylists`,
-        {
-          headers: {
-            token: `Bearer ${user.accessToken}`,
-          },
-        }
-      )
+    request
+      .get(`user/${user?._id}/recentPlaylists`, {
+        headers: {
+          token: `Bearer ${user.accessToken}`,
+        },
+      })
       .then((res) => {
         setData(res.data);
       })
       .catch((error) => console.log(error));
+    setIsFetching(false);
   }, []);
   return (
     <div className="history-library-playlist">
-      {data?.length > 0 && (
+      {!isFetching && data?.length > 0 && (
         <div className="row">
           {data?.map((item) => {
             return (
@@ -44,7 +40,7 @@ const Song = () => {
           })}
         </div>
       )}
-      {!data.length && (
+      {!isFetching && !data.length && (
         <div className="no-content background">
           <div
             className="no-content-img"
@@ -55,6 +51,7 @@ const Song = () => {
           <p className="no-content-desc">Không có Podcast nghe gần đây</p>
         </div>
       )}
+      {isFetching && <ListCardLoader />}
     </div>
   );
 };

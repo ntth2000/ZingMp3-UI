@@ -1,9 +1,13 @@
 import React from "react";
 import Media from "../Media";
 
-const ListLoader = () => {
+const ListMediaLoader = () => {
   return (
     <div>
+      <Media />
+      <Media />
+      <Media />
+      <Media />
       <Media />
       <Media />
       <Media />
@@ -22,4 +26,4 @@ const ListLoader = () => {
   );
 };
 
-export default ListLoader;
+export default ListMediaLoader;

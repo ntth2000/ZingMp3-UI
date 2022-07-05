@@ -18,6 +18,15 @@
       margin-bottom: 0;
     }
   }
+  .auth-btn {
+    padding: 9px 24px;
+    margin-top: 20px;
+
+    &.fetching {
+      min-width: 120px;
+      padding: 0;
+    }
+  }
 }
 .auth-wrapper {
   opacity: 0.9;
@@ -93,11 +102,6 @@
   }
 }
 
-.auth-btn {
-  padding: 9px 24px;
-  font-weight: 500;
-  margin-top: 20px;
-}
 .auth-footer,
 .auth-agreement {
   text-align: center;

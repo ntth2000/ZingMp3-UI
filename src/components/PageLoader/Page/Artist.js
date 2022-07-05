@@ -1,7 +1,7 @@
 import React from "react";
 import Media from "../Component/Media";
 import { Card } from "../Component";
-import { ListLoader } from "../Component";
+import { ListMediaLoader } from "../Component";
 const ArtistLoader = () => {
   return (
     <div>
@@ -45,7 +45,7 @@ const ArtistLoader = () => {
             </div>
           </div>
           <div className="list bright-scrollbar">
-            <ListLoader />
+            <ListMediaLoader />
           </div>
         </div>
       </section>

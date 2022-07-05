@@ -1,17 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
+import clsx from "clsx";
 import "./LoginAndRegister.scss";
-
+import { Spinner } from "~/assets/icons";
 import { useDispatch, useSelector } from "react-redux";
 import useValidate from "~/hooks/useValidate";
 import Button from "~/components/Button";
 import { authActions } from "~/stores/authSlice";
+import { request } from "~/utils/request";
+import useToast from "~/components/Toast";
 const Register = ({ showLogin }) => {
   const dispatch = useDispatch();
-  const [error, setError] = useState();
   const { isFetching } = useSelector((state) => state.auth);
   const validator = useValidate();
+  const toast = useToast();
+  const [error, setError] = useState(null);
   const [value, setValue] = useState({});
   const emailRef = useRef();
   const usernameRef = useRef();
@@ -23,6 +26,7 @@ const Register = ({ showLogin }) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
+
   useEffect(() => {
     validator({
       form: ".auth-form#register",
@@ -43,30 +47,16 @@ const Register = ({ showLogin }) => {
         ),
       ],
       onSubmit(data) {
-        // register(
-        //   {
-        //     method: "post",
-        //     url: "http://localhost:8800/user/register",
-        //     data: {
-        //       email: data.formValues.email,
-        //       username: data.formValues.username,
-        //       password: data.formValues.password,
-        //     },
-        //   },
-        //   logData
-        // );
         setError(null);
         dispatch(authActions.setFetching(true));
 
-        axios
-          .post(
-            `${process.env.REACT_APP_FETCH_URL}user/register`,
-            data.formValues
-          )
+        request
+          .post("user/register", data.formValues)
           .then((res) => {
+            toast("Đăng ký thành công!");
             setError(null);
-            axios
-              .post(`${process.env.REACT_APP_FETCH_URL}auth/login`, {
+            request
+              .post("auth/login", {
                 email: data.formValues.email,
                 password: data.formValues.password,
               })
@@ -172,9 +162,9 @@ const Register = ({ showLogin }) => {
           type="primary"
           hover="bg-bright"
           size="large"
-          className={"auth-btn"}
+          className={clsx("auth-btn", isFetching && "fetching")}
         >
-          Đăng ký
+          {isFetching ? <Spinner /> : "Đăng ký"}
         </Button>
       </form>
       <div className="auth-footer">

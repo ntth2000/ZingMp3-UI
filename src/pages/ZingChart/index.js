@@ -7,7 +7,7 @@ import Media from "~/components/Media";
 import { fetchPageData } from "~/apiServices/pageDataServices";
 
 import "./ZingChart.scss";
-import { ListLoader as ZingChartLoader } from "~/components/PageLoader/Component";
+import { ListMediaLoader as ZingChartLoader } from "~/components/PageLoader/Component";
 const ZingChart = () => {
   const title = document.querySelector("title");
   title.innerText =

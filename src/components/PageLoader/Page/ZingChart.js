@@ -1,10 +1,10 @@
 import React from "react";
-import ListLoader from "../Component/List";
+import ListMediaLoader from "../Component/ListMedia";
 
 const ZingChart = () => {
   return (
     <div>
-      <ListLoader />
+      <ListMediaLoader />
     </div>
   );
 };

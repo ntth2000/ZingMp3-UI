@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import "~/components/Media/Media.scss";
 import "./Player.scss";
 
 import Icon from "~/components/Icon";
 import { playerActions } from "~/stores/playerSlice";
-
-import { fetchSong, fetchStreaming } from "~/apiServices/playerServices";
 
 import useToast from "~/components/Toast";
 import { request } from "~/utils/request";
@@ -27,7 +24,7 @@ const Player = () => {
   const dispatch = useDispatch();
   const toast = useToast();
   const { source, error, autoplay } = useSelector((state) => state.player);
-  const { isLogin, user } = useSelector((state) => state.auth);
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const { currentSongId, repeatStatus, currentIndex, idList } = useSelector(
     (state) => state.queue
   );
@@ -69,11 +66,11 @@ const Player = () => {
     };
     fetchAudio();
 
-    isLogin &&
+    isLoggedIn &&
       !error &&
-      axios
+      request
         .put(
-          `${process.env.REACT_APP_FETCH_URL}user/${user._id}/recentSongs`,
+          `user/${user._id}/recentSongs`,
           { songId: currentSongId, action: "add" },
           {
             headers: {

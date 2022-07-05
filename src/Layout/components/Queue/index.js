@@ -13,6 +13,7 @@ import Media from "~/components/Media";
 import { fetchAlbum } from "~/apiServices/albumServices";
 import { queueActions } from "~/stores/queueSlice";
 import { AddPlaylistMenu } from "~/components/Menus";
+import { request } from "~/utils/request";
 
 const Queue = () => {
   const dispatch = useDispatch();
@@ -55,9 +56,9 @@ const Queue = () => {
 
       {
         !!user &&
-          axios
+          request
             .put(
-              `${process.env.REACT_APP_FETCH_URL}user/${user._id}/recentPlaylists`,
+              `user/${user._id}/recentPlaylists`,
               { playlistId: currentPlaylistId, action: "add" },
               {
                 headers: {

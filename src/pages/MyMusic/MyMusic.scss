@@ -76,12 +76,17 @@
   border-color: var(--link-text-hover);
 }
 
-.my-music .media-left {
-  flex: 0 0 50%;
+.my-music {
+  .list {
+    .media-left {
+      flex: 0 0 50%;
+    }
+    .media-right {
+      margin-left: auto;
+    }
+  }
 }
-.my-music .media-right {
-  margin-left: auto;
-}
+
 @media (max-width: 46.1875em) {
   .my-music {
     .section-header {
