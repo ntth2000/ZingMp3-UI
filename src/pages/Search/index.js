@@ -25,9 +25,14 @@ const Search = () => {
       .get("search", {
         params: { q: searchText },
       })
-      .then((res) => setData(res.data))
-      .catch((error) => console.log(error));
-    setIsLoading(false);
+      .then((res) => {
+        setData(res.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
   }, [searchText]);
   return (
     <div className="search">
@@ -50,7 +55,7 @@ const Search = () => {
 
       {isLoading && (
         <div>
-          aa {console.log("search loading")}
+          {console.log("search loading")}
           <SearchLoader />
         </div>
       )}
