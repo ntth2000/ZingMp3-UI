@@ -12,6 +12,7 @@ import { SwiperSlide } from "swiper/react";
 import Card from "~/components/Card";
 import Media from "~/components/Media";
 import { SearchLoader } from "~/components/PageLoader/Page";
+import { request } from "~/utils/request";
 const Search = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -20,14 +21,12 @@ const Search = () => {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(true);
-    console.log("search is loading?", isLoading);
-    axios
-      .get("${process.env.REACT_APP_FETCH_URL}search", {
+    request
+      .get("search", {
         params: { q: searchText },
       })
       .then((res) => setData(res.data))
       .catch((error) => console.log(error));
-    console.log("search is loading?", isLoading);
     setIsLoading(false);
   }, [searchText]);
   return (
@@ -49,14 +48,14 @@ const Search = () => {
         </nav>
       </header>
 
-      {isLoading && !data && (
+      {isLoading && (
         <div>
           aa {console.log("search loading")}
           <SearchLoader />
         </div>
       )}
 
-      {data && (
+      {!isLoading && data && (
         <>
           {!data ||
             (!data?.counter.song &&
