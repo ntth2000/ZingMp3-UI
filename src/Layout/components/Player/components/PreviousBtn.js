@@ -9,7 +9,6 @@ const PreviousBtn = () => {
     dispatch(playerActions.pauseMusic());
     dispatch(queueActions.prev());
     dispatch(playerActions.setAutoplay(true));
-    alert("hello");
   };
   return (
     <Icon
