@@ -58,10 +58,10 @@ const Search = () => {
       {!isLoading && data && (
         <>
           {!data ||
-            (!data?.counter.song &&
-              !data?.counter.video &&
-              !data?.counter.playlist &&
-              !data?.counter.artist && (
+            (!data?.counter?.song &&
+              !data?.counter?.video &&
+              !data?.counter?.playlist &&
+              !data?.counter?.artist && (
                 <div className="no-content background">
                   <div
                     className="no-content-img song"
