@@ -54,7 +54,11 @@ const Song = () => {
           <p className="no-content-desc">Không có Podcast nghe gần đây</p>
         </div>
       )}
-      {isFetching && <ListCardLoader />}
+      {isFetching && (
+        <div className="row">
+          <ListCardLoader />
+        </div>
+      )}
     </div>
   );
 };

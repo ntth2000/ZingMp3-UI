@@ -15,9 +15,9 @@ const Layout = ({ children }) => {
   useEffect(() => {
     const header = document.querySelector("header.header");
     const layoutContent = document.querySelector(".layout-content");
-    layoutContent.onscroll = (e) => {
+    layoutContent.addEventListener("scroll", (e) => {
       header.classList.toggle("scrolling", e.target.scrollTop > 0);
-    };
+    });
   }, []);
 
   const html = document.querySelector("html");

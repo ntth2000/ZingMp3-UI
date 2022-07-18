@@ -12,33 +12,37 @@ const MvCard = ({ data }) => {
   return (
     <div className="mv-card">
       <div className="mv-card-thumb zoom-in">
-        <img src={data.thumbnailM} alt="" className="zoom-in-img mv-card-img" />
+        <img
+          src={data?.thumbnailM}
+          alt=""
+          className="zoom-in-img mv-card-img"
+        />
         <span className="mv-card-action is-hover-dark is-circle">
           <i className="ic-play-circle-outline"></i>
         </span>
         <span className="mv-card-duration">{duration}</span>
       </div>
       <div className="mv-card-info">
-        <Link to={`/nghe-si/${data.artist.alias}`} className="mv-card-link">
-          <img
-            className="mv-card-artist-thumb is-circle"
-            src={data.artist.thumbnail}
-          />
-        </Link>
+        {data?.artist?.thumbnail && (
+          <Link to={`/nghe-si/${data?.artist?.alias}`} className="mv-card-link">
+            <img
+              className="mv-card-artist-thumb is-circle"
+              src={data?.artist?.thumbnail}
+            />
+          </Link>
+        )}
         <div className="mv-card-text">
-          <h4 className="mv-card-title">
-            <Link to="" className="mv-card-link">
-              {data.title}
-            </Link>
-          </h4>
-          <p className="mv-card-artists">
-            {data.artists.map((artist, index) => (
-              <>
-                <ArtistName artist={artist} key={index} />
-                {index < data.artists.length - 1 && ", "}
-              </>
-            ))}
-          </p>
+          <h4 className="mv-card-title">{data?.title}</h4>
+          {data?.artists && (
+            <p className="mv-card-artists">
+              {data?.artists?.map((artist, index) => (
+                <>
+                  <ArtistName artist={artist} key={index} />
+                  {index < data?.artists?.length - 1 && ", "}
+                </>
+              ))}
+            </p>
+          )}
         </div>
       </div>
     </div>

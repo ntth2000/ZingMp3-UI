@@ -5,7 +5,6 @@ import "./Search.scss";
 const Search = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const searchParams = new URLSearchParams(location.search);
   const searchText = searchParams.get("q");
 
@@ -15,13 +14,22 @@ const Search = () => {
   useEffect(() => {
     setSearchInput(searchText || "");
   }, [searchText]);
+
   const handleClearInput = () => {
     setSearchInput("");
     searchInputRef.current.focus();
   };
   const handleEnterKey = (e) => {
     if (e.which === 13 && !!searchInput) {
-      navigate(`/tim-kiem/tat-ca?q=${encodeURIComponent(searchInput)}`);
+      let navigateLink = `/tim-kiem/tat-ca?q=${encodeURIComponent(
+        searchInput
+      )}`;
+      if (location.pathname.includes("/tim-kiem")) {
+        navigateLink =
+          location.pathname + "?q=" + encodeURIComponent(searchInput);
+      }
+      console.log("navigateLink", navigateLink);
+      navigate(navigateLink);
     }
   };
   const handleSearch = () => {

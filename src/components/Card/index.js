@@ -36,9 +36,9 @@ const Card = ({
         <div className="card-thumb zoom-in">
           <img
             onClick={() => {
-              navigate(`/album/${aliasName}/${data.encodeId}`);
+              navigate(`/album/${aliasName}/${data?.encodeId}`);
             }}
-            src={data.thumbnailM || data.thumbnail}
+            src={data?.thumbnailM || data?.thumbnail}
             alt={data?.title}
             className="card-img zoom-in-img"
           />
@@ -93,21 +93,21 @@ const Card = ({
 
         <div className="card-title title">
           <Link
-            to={`/album/${aliasName}/${data.encodeId}`}
+            to={`/album/${aliasName}/${data?.encodeId}`}
             className="card-link link"
           >
-            {data.title}
+            {data?.title}
           </Link>
         </div>
         {showDate && (
           <p className="card-date">
-            {data.releaseDate.substr(data.releaseDate.length - 4)}
+            {data?.releaseDate?.substr(data?.releaseDate?.length - 4)}
           </p>
         )}
         {showArtists && (
           <p className="card-artists">
             {data.artists ? (
-              data.artists.map((artist, index) => {
+              data?.artists?.map((artist, index) => {
                 if (index < 3) {
                   return (
                     <>
@@ -116,10 +116,10 @@ const Card = ({
                         showSpotlight={showSpotlight}
                       />
                       {index < 2 &&
-                        data.artists.length > 1 &&
-                        data.artists.length > index + 1 &&
+                        data?.artists?.length > 1 &&
+                        data?.artists?.length > index + 1 &&
                         ", "}
-                      {index === 2 && data.artists.length > 3 && ",..."}
+                      {index === 2 && data?.artists?.length > 3 && ",..."}
                     </>
                   );
                 }

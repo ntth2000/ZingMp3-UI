@@ -67,12 +67,10 @@
   display: block;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  overflow: hidden;
   -webkit-line-clamp: 1;
+  overflow: hidden;
+  cursor: default;
   &:hover {
     color: var(--link-text-hover);
-  }
-  .mv-card-link {
-    display: block;
   }
 }

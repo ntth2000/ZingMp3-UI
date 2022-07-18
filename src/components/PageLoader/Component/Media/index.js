@@ -1,20 +1,24 @@
 import React from "react";
-import Icon from "~/components/Icon";
 import "~/components/PageLoader/PageLoader.scss";
 const Media = () => {
   return (
     <div className="media-loader">
       <div className="media-left">
         <div className="media-img loader"></div>
+        <div className="media-info">
+          <div className="half-width mb-10 loader title">&zwnj;</div>
+          <div className="loader quarter-width title">&zwnj;</div>
+        </div>
       </div>
       <div className="media-center">
-        <div className="half-width title loader mb-10"></div>
-        <div className="half-width subtitle loader"></div>
+        <div className="media-album loader title half-width">&zwnj;</div>
       </div>
       <div className="media-right">
-        <Icon className="loader" size={32} />
-        <Icon className="loader" size={32} />
-        <Icon className="loader" size={32} />
+        <div className="media-actions">
+          <span className="icon loader circle"></span>
+          <span className="icon loader circle"></span>
+          <span className="icon loader circle"></span>
+        </div>
       </div>
     </div>
   );

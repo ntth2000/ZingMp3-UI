@@ -21,7 +21,7 @@ const MV = ({ data }) => {
       <div className="row">
         {data.items.map((item, index) => {
           return (
-            <div className="col p-28 l-4 m-6 c-12" key={index}>
+            <div className="col l-4 m-6 c-12" key={index}>
               <MvCard data={item} />
             </div>
           );

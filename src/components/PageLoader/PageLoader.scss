@@ -1,6 +1,6 @@
 .loader {
   background-color: var(--alpha-bg);
-
+  border-radius: 3px;
   position: relative;
   overflow: hidden;
   &::after {
@@ -18,8 +18,8 @@
     );
     animation: pulse 1.5s ease-in-out infinite;
   }
-  &:not(.icon) {
-    border-radius: 3px;
+  &.mb-1 {
+    margin-bottom: 1px;
   }
   &.mb-10 {
     margin-bottom: 10px;
@@ -39,8 +39,6 @@
     margin-bottom: 10px;
   }
   &.circle {
-    width: 20px;
-    height: 20px;
     border-radius: 999px;
   }
   &.full-width {
@@ -52,12 +50,23 @@
   &.quarter-width {
     width: 25%;
   }
+  &.button {
+    height: 29px;
+    border-radius: 999px;
+    max-width: 122px;
+  }
+  &.icon {
+    width: 32px;
+    height: 32px;
+    margin-left: 7px;
+  }
 }
 .media-loader {
   display: flex;
   padding: 10px;
   .media-left {
     margin-right: 10px;
+    width: 50%;
   }
   .media-center {
     display: flex;
@@ -68,6 +77,9 @@
   .media-right {
     margin-left: unset;
   }
+}
+.mv-card-loader {
+  margin-bottom: 30px;
 }
 @keyframes pulse {
   from {
