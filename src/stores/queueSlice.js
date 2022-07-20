@@ -30,8 +30,10 @@ const queueSlice = createSlice({
       state.isShuffle = !state.isShuffle;
       if (state.isShuffle) {
         state.idList = shuffleQueue(state.originalIdList);
+        state.currentIndex = state.idList.indexOf(state.currentSongId);
       } else {
         state.idList = [...state.originalIdList];
+        state.currentIndex = state.idList.indexOf(state.currentSongId);
       }
       localStorage.setItem(QUEUE, JSON.stringify(state));
     },

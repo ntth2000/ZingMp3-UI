@@ -60,7 +60,12 @@ const Card = ({
                 )}
               </Icon>
             )}
-            <button className="is-hover-dark card-action play">
+            <button
+              className="is-hover-dark card-action play"
+              onClick={() => {
+                navigate(`/album/${aliasName}/${data?.encodeId}`);
+              }}
+            >
               <i className="ic-play-circle-outline"></i>
             </button>
             {showIcon && (

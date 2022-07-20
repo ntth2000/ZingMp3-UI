@@ -107,11 +107,12 @@ const Player = () => {
       ) {
         dispatch(playerActions.pauseMusic());
         nextBtn.click();
-      } else if (repeatStatus === 0 && currentIndex === idList.length - 1) {
+      }
+      if (repeatStatus === 0 && currentIndex === idList.length - 1) {
         dispatch(playerActions.pauseMusic());
       }
     };
-  }, []);
+  }, [currentIndex, idList]);
 
   return (
     <div className="player">
