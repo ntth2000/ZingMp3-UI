@@ -24,7 +24,7 @@ const ArtistLoader = () => {
           </div>
           <div className="col l-5 m-5 c-0">
             <div className="artist-header-right">
-              <div className="artist-thumb icon loader"></div>
+              <div className="artist-thumb circle loader"></div>
             </div>
           </div>
         </div>

@@ -192,7 +192,7 @@ const Artist = () => {
           </div>
         </>
       )}
-      {!data && isLoading && <ArtistLoader />}
+      {isLoading && <ArtistLoader />}
     </div>
   );
 };
